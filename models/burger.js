@@ -10,27 +10,18 @@ var burgerFunc = {
         });
     },
     // insert new burger
-    insertOne: function () {
-        orm.insertOne("table", "burgerName", function (results) {
+    insertOne: function (cols, vals, cb) {
+        orm.insertOne("burgerName", cols, vals, function (results) {
             console.log(results);
         })
     },
     // update already inserted burger
-    updateOne: function () {
-        orm.updateOne("newBurger", "oldBurger", function (results) {
+    updateOne: function (objColVals, condition, cb) {
+        orm.updateOne("burger", objColVals, condition, function (results) {
             console.log(results);
         })
     }
 }
 
-// burgerFunc.selectAll();
-// insert function does not properly work
-burgerFunc.insertOne("burgers", "McDouble");
 
-/*
-// Find a pet in the pets table by an animal_name of Rachel.
-orm.selectWhere("pets", "animal_name", "Rachel");
-
-// Find the buyer with the most pets.
-orm.findWhoHasMost("buyer_name", "buyer_id", "buyers", "pets");
-// */
+module.exports = burgerFunc;

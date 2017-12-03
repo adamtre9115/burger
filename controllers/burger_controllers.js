@@ -8,43 +8,36 @@ var burger = require("../models/burger.js");
  routes
 **************/
 
-router.get("/", (req, res) => {
-    res.redirect('/burgers');
-});
-
-
 router.get("/", function (req, res) {
     burger.selectAll(function (data) {
         var hbsObject = {
-            burger: data
+            burgers: data
         };
-        console.log(hbsObject);
-        res.render("index", hbsObject);
+        // console.log(hbsObject);
+        res.render("index");
     });
 });
 
 // insert new burger
-router.post("/", function (req, res) {
+router.post("/burgers", function (req, res) {
     burger.insertOne([
-        "name"
+        "burger_name", "devoured"
     ], [
-        req.body.name
-    ], function (result) {
+        req.body.burger_name
+    ], function (data) {
         // Send back the ID of the new quote
-        res.json({
-            id: result.insertId
-        });
+        res.redirect("/");
     });
 });
 
 // update a burger
-router.put("/:id", function (req, res) {
+router.put("/eaten/:id", function (req, res) {
     var condition = "id = " + req.params.id;
 
     console.log("condition", condition);
 
     burger.updateOne({
-        devoured: req.body.sleepy
+        devoured: req.body.devoured
     }, condition, function (result) {
         if (result.changedRows == 0) {
             // If no rows were changed, then the ID must not exist, so 404

@@ -37,14 +37,12 @@ function objToSql(ob) {
 
 var orm = {
     // select all
-    selectAll: function (tableInput, callback) {
-        var queryString = "SELECT * FROM ??";
-        connection.query(queryString, [tableInput], function (err, result) {
-            if (err) {
-                console.log(err);
-            } else {
-                cb(result);
-            }
+    selectAll: function (tableInput, cb) {
+        var queryString = 'SELECT * FROM ' + tableInput + ';';
+        connection.query(queryString, function (err, result) {
+            if (err) throw err;
+            // send the query result back to the callback function
+            cb(result);
         });
     },
     // insert new row
@@ -58,7 +56,7 @@ var orm = {
         queryString += printQuestionMarks(vals.length);
         queryString += ") ";
 
-        console.log(queryString);
+        // console.log(queryString);
 
         connection.query(queryString, vals, function (err, result) {
             if (err) {
@@ -77,7 +75,7 @@ var orm = {
         queryString += " WHERE ";
         queryString += condition;
 
-        console.log(queryString);
+        // console.log(queryString);
         connection.query(queryString, function (err, result) {
             if (err) {
                 throw err;

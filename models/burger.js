@@ -4,21 +4,21 @@ var orm = require("../config/orm.js");
 
 var burgerFunc = {
     // Find all burgers
-    selectAll: function () {
+    selectAll: function (cb) {
         orm.selectAll("burgers", function (results) {
-            console.log(results);
+            cb(results);
         });
     },
     // insert new burger
     insertOne: function (cols, vals, cb) {
-        orm.insertOne("burgerName", cols, vals, function (results) {
-            console.log(results);
+        orm.insertOne("burgers", cols, vals, function (results) {
+            cb(results);
         })
     },
     // update already inserted burger
     updateOne: function (objColVals, condition, cb) {
-        orm.updateOne("burger", objColVals, condition, function (results) {
-            console.log(results);
+        orm.updateOne("burgers", objColVals, condition, function (results) {
+            cb(results);
         })
     }
 }

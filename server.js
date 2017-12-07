@@ -1,6 +1,6 @@
 // required dependancies
 var express = require("express");
-var override = require("method-override");
+var methodOverride = require("method-override");
 var bodyParser = require("body-parser");
 
 
@@ -13,8 +13,10 @@ app.use(express.static("public"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
+
+app.use(methodOverride('_method'));
 
 // Set Handlebars.
 var exphbs = require("express-handlebars");
